@@ -26,4 +26,14 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(todo).subscribe(); // server-side or service emmission of selected-deleted todo
   }
 
+  /** we are going to first make a POST request to the server through the service
+   * & when the observable is gotten back, we add it to our UI here
+   */
+  addTodo(todo: Todo) {
+    // tslint:disable-next-line:no-shadowed-variable
+    this.todoService.addTodo(todo).subscribe(todo => {
+      this.todos.push(todo);
+    });
+  }
+
 }
