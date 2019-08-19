@@ -18,11 +18,17 @@ export class TodoService {
 
   constructor(private http: HttpClient ) { }
 
-  // get todos
+  // Get todos
   getTodos(): Observable<Todo[]> {
     // getting an http request & making it a Todo[] item (arrays of type Todo)
     // return this.http.get<Todo[]>(this.todosUrl);
     return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`); // we add the limit
+  }
+
+  // Deleted todo
+  deleteTodo(todo: Todo): Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`;
+    return this.http.delete<Todo>(url, httpOptions);
   }
 
   // Toggle completed
