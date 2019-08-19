@@ -3,11 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Todo } from '../models/Todo'; // imported model for use in this services.ts file
 import { Observable } from 'rxjs';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  todosUrl = 'https://jsonplaceholder.typicode.com/todos?_limit=5';
+  todosUrl = 'https://jsonplaceholder.typicode.com/todos';
   todosLimit = '?_limit=5'; // our limit for the number of todos viewed
 
   constructor(private http: HttpClient ) { }
@@ -21,6 +27,7 @@ export class TodoService {
 
   // Toggle completed
   toggleCompleted(todo: Todo): Observable<any> {
+    const url = `${this.todosUrl}/${todo.id}`;
     return this.http.put(url, todo, httpOptions);
   }
 }
